@@ -5,11 +5,13 @@ import {
   View,
   Text,
   Image,
+  Button,
   StyleSheet,
   TouchableOpacity,
   PanResponder,
   Animated,
   Dimensions,
+  Linking,
 } from 'react-native';
 import { priceDisplay } from '../util';
 import ajax from '../ajax';
@@ -66,6 +68,9 @@ class DealDetail extends React.Component {
     const fullDeal = await ajax.fetchDealDetail(this.state.deal.key);
     this.setState({ deal: fullDeal });
   }
+  openDealUrl = () => {
+    Linking.openURL(this.state.deal.url);
+  };
   render() {
     const { deal } = this.state;
     return (
@@ -91,6 +96,7 @@ class DealDetail extends React.Component {
           </View>
         )}
         <Text>{deal.description}</Text>
+        <Button title="Buy this deal!" onPress={this.openDealUrl} />
       </View>
     )
   }
